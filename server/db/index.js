@@ -3,7 +3,7 @@ var mysql = require('mysql2');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  database: 'chatterBox'
+  database: 'chat'
 });
 
 module.exports.connection = connection;

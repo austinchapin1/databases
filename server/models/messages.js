@@ -1,27 +1,35 @@
 var db = require('../db');
 
 module.exports = {
-  // a function which produces all the messages
-  // What do we want to get?
-  // messages, username, and room?
+
   getAll: function (callback) {
-    connection.query('SELECT messages.messages, userNames.users, messages.rooms FROM messages INNER JOIN userNames '), (err, results, fields) => {
+
+    var queryString = 'SELECT messages.messageText, messages.roomname, users.username \
+                      FROM messages LEFT OUTER JOIN users \
+                      ON messages.userID=users.id';
+
+    db.connection.query(queryString, (err, results) => {
       if (err) {
-        console.log(err);
+        callback(err);
+        console.error('This is line 13 in /modes/messages.js');
       } else {
         callback(null, results);
       }
-    };
+    });
   },
-  // a function which can be used to insert a message into the database
-  create: function (callback) {
-    connection.query('INSERT INTO messages (id, users, messages, rooms) VALUES ***(id, ${users}, messages, rooms)***'), (err, results) => {
+
+
+  create: function (bodyData, callback) {
+
+    var queryString = 'INSERT INTO messages(usersID, messageText, rooms) VALUES ((SELECT usersID FROM users where username = ?), ?, ?)';
+
+    db.connection.query(queryString, bodyData, (err, results) => {
       if (err) {
-        console.log(err);
+        callback(err);
       } else {
         callback(null, results);
       }
-    };
+    });
   }
 };
 
