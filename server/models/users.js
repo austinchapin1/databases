@@ -2,7 +2,15 @@ var db = require('../db');
 
 module.exports = {
   // ERROR FIRST CB?
-  getAll: function () {},
+  getAll: function (callback) {
+    connection.query('STRING TO PASS TO MYSQL'), (err, results) => {
+      if (err) {
+        console.log(err);
+      } else {
+        callback(null, results);
+      }
+    };
+  },
   create: function () {}
 };
 

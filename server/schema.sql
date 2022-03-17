@@ -2,25 +2,24 @@ CREATE DATABASE chat;
 
 USE chat;
 
-CREATE TABLE messageList (
-  id int PRIMARY KEY,
-  users int,
-  messages char(255),
-  rooms int,
-  FOREIGN KEY (users) REFERENCES userNames(id),
-  FOREIGN KEY (rooms) REFERENCES chatRooms(id)
-);
-
-CREATE TABLE chatRooms (
-  id int PRIMARY KEY,
-  rooms char(20)
+CREATE TABLE users (
+  id INT AUTO_INCREMENT,
+  username CHAR(20),
+  PRIMARY KEY (id)
 );
 
 
-CREATE TABLE userNames (
-  id int PRIMARY KEY,
-  users char(20)
+CREATE TABLE messages (
+  id INT AUTO_INCREMENT,
+  usersID INT,
+  messageText CHAR(255),
+  rooms CHAR(20),
+  PRIMARY KEY (id),
+  FOREIGN KEY (usersID) REFERENCES users(id)
 );
+
+
+
 
 
 /*  Execute this file from the command line by typing:
